@@ -1,0 +1,32 @@
+name: Deploy no Kubernetes
+on: 
+  workflow_call:
+    inputs:
+      manifest:
+        required: true
+        type: string
+        description: "Caminho do manifesto Kubernetes a ser aplicado"
+      images:
+        required: true
+        type: string
+        description: "Imagem Docker a ser utilizada no manifesto Kubernetes"
+jobs:
+  deploy-k8s:
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Obtendo o código
+      uses: actions/checkout@v4.1.5
+    - name: Setup Tailscale
+      uses: tailscale/github-action@v2
+      with:
+        authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+    - name: Configuração de contexto do Kubernetes
+      uses: azure/k8s-set-context@v4.0.0
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.K8S_CONFIG }}
+    - name: Execução do Manifesto
+      uses: Azure/k8s-deploy@v5
+      with:
+        manifests: ${{ inputs.manifest }}
+        images: ${{ inputs.images }}
