@@ -27,6 +27,6 @@ jobs:
     needs: [CI]
     uses: rodrigogfreire/primeira-pipeline-cicd/.github/workflows/deploy.yaml@main
     with:
-      manifest: ./k8s/manifest.yaml
+      manifest: ./k8s/deployment.yaml
       images: rodrigogfreire/aula-primeira-pipeline:v${{ github.run_number }}
     secrets: inherit
