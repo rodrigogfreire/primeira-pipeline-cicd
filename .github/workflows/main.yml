@@ -21,8 +21,8 @@ jobs:
         file: ./src/Dockerfile
         push: true
         tags: | 
-          fabricioveronez/aula-primeira-pipeline:v${{ github.run_number }} 
-          fabricioveronez/aula-primeira-pipeline:latest 
+          rodrigogfreire/aula-primeira-pipeline:v${{ github.run_number }} 
+          rodrigogfreire/aula-primeira-pipeline:latest 
   CD:
     runs-on: ubuntu-latest
     needs: [CI]
