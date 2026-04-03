@@ -29,6 +29,10 @@ jobs:
     steps: 
     - name: Obtendo o código
       uses: actions/checkout@v4.1.5
+    - name: Setup Tailscale
+      uses: tailscale/github-action@v2
+      with:
+        authkey: ${{ secrets.TAILSCALE_AUTHKEY }}      
     - name: Configuração de contexto do Kubernetes
       uses: azure/k8s-set-context@v4.0.0
       with:
